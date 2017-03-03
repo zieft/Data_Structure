@@ -32,7 +32,7 @@ class StudentFileReader:
         Extract all student records and store them in a list.
         :return:
         """
-        theRecords = list()
+        theRecords = []
         student = self.fetchRecord()
         while student != None:
             theRecords.append(student)
