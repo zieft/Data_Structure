@@ -6,7 +6,7 @@ class Bag:
         """
         Constructs an empty bag.
         """
-        self._theItems = list()
+        self._theItems = []
 
     def __len__(self):
         """
