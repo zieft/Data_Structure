@@ -94,6 +94,7 @@ class Array2D:
     into rows and columns. Individual elements are referenced by specifying
     the specific row and column indices (r, c), both of which start at 0.
     """
+
     def __init__(self, numRows, numCols):
         """
         Creates a 2-D array of size numRows x numCols.
@@ -131,18 +132,23 @@ class Array2D:
             row.clear(value)
 
     def __getitem__(self, ndxTuple):
+        """
+        Gets the contents of the element at position [r,c]
+        :param ndxTuple:
+        :return:
+        """
         assert len(ndxTuple) == 2, "Invalid number of array subscripts."
         row = ndxTuple[0]
         col = ndxTuple[1]
         assert row >= 0 and row < self.numRows() \
-           and col >= 0 and col < self.numCols(), \
-                "Array subscript out of range."
+               and col >= 0 and col < self.numCols(), \
+            "Array subscript out of range."
         the1dArray = self._theRows[row]
         return the1dArray[col]
 
     def __setitem__(self, ndxTuple, value):
         """
-        Sets the contents of the element at position [i,j] to value.
+        Sets the contents of the element at position [r,c] to value.
         :param ndxTuple:
         :param value:
         :return:
@@ -151,7 +157,8 @@ class Array2D:
         row = ndxTuple[0]
         col = ndxTuple[1]
         assert row >= 0 and row < self.numRows() \
-           and col >= 0 and col < self.numCols(), \
-                "Array subscript out of range."
+               and col >= 0 and col < self.numCols(), \
+            "Array subscript out of range."
         the1dArray = self._theRows[row]
         the1dArray[col] = value
+
