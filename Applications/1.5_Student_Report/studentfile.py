@@ -53,7 +53,7 @@ class StudentFileReader:
         # if there is another record, create a storage object and fill it.
         student = StudentRecord()
         student.idNum = int(line)
-        student.firstName = self._inputFile.readline().rstrip()
+        student.firstName = self._inputFile.readline().rstrip()  # rstrip()删掉字符串末尾的空格
         student.lastName = self._inputFile.readline().rstrip()
         student.classCode = int(self._inputFile.readline())
         student.gpa = float(self._inputFile.readline())
