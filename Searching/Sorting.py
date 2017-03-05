@@ -30,3 +30,22 @@ def selection_sort(the_seq):
         if small_index != i:
             the_seq[i], the_seq[small_index] = the_seq[small_index], the_seq[i]
     return the_seq
+
+
+def insertion_sort(the_seq):
+    """
+    Sorts a sequence in ascending order using the insertion sort algorithm.
+    :param the_seq:
+    :return:
+    """
+    n = len(the_seq)
+    # Starts with the first item as the only sorted entry.
+    for i in range(1, n):
+        value = the_seq[i]
+        # Find the position where value fits in the ordered part of the list.
+        pos = i
+        while pos > 0 and value < the_seq[pos - 1]:
+            # Shift the items to the right during the search.
+            the_seq[pos] = the_seq[pos - 1]
+            pos -= 1
+        the_seq[pos] = value
