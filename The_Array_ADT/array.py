@@ -161,4 +161,3 @@ class Array2D:
             "Array subscript out of range."
         the1dArray = self._theRows[row]
         the1dArray[col] = value
-
