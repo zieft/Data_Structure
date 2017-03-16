@@ -19,9 +19,14 @@ class Binary:
     def to_dec(self):
         value_str = str(self.value)
         n = Decimal(0)
+        exponent = 0
         for i in reversed(range(len(value_str))):
-            n.value += int(value_str[i]) * 2 ** i
+            n.value += int(value_str[i]) * 2 ** exponent
+            exponent += 1
         return n
+
+    def to_hex(self):
+        return self.to_dec().to_hex()
 
 
 class Hexadecimal:
@@ -61,12 +66,17 @@ class Hexadecimal:
             'F': 15
         }
         hex_letter = {'A', 'B', 'C', 'D', 'E', 'F'}
+        exponent = 0
         for i in reversed(range(len(self.value))):
             _ = self.value[i]
             if set(_).issubset(hex_letter):
                 _ = dict[self.value[i]]
-            n.value += int(_) * 16 ** i
+            n.value += int(_) * 16 ** exponent
+            exponent += 1
         return n
+
+    def to_bin(self):
+        return self.to_dec().to_bin()
 
 
 class Decimal(int):
@@ -83,7 +93,7 @@ class Decimal(int):
         value_str = ''
         flag = self.value
         while flag > 0:
-            value_str = value_str + str(flag % 2)
+            value_str = str(flag % 2) + value_str
             flag = flag // 2
         _bin = Binary(int(value_str))
         return _bin
@@ -103,9 +113,8 @@ class Decimal(int):
             remainder = flag % 16
             if remainder > 9:
                 Hex_char = dict[remainder]
-                value_str += Hex_char
+                value_str = Hex_char + value_str
             else:
-                value_str += str(remainder)
+                value_str = str(remainder) + value_str
             flag = flag // 16
-        return value_str
-
+        return Hexadecimal(value_str)
