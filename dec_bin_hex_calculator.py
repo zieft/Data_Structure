@@ -30,6 +30,10 @@ class Hexadecimal:
         hex_set.add(i)
 
     def __init__(self, value):
+        """
+
+        :param value: String
+        """
         assert type(value) == str and self.elementof(value).issubset(self.hex_set), \
             'the input only accept strings contain one or more characters in this list "1234567890ABCDEF"!'
         self.value = value
@@ -46,10 +50,28 @@ class Hexadecimal:
             elements.add(i)
         return elements
 
+    def to_dec(self):
+        n = Decimal(0)
+        dict = {
+            'A': 10,
+            'B': 11,
+            'C': 12,
+            'D': 13,
+            'E': 14,
+            'F': 15
+        }
+        hex_letter = {'A', 'B', 'C', 'D', 'E', 'F'}
+        for i in reversed(range(len(self.value))):
+            _ = self.value[i]
+            if set(_).issubset(hex_letter):
+                _ = dict[self.value[i]]
+            n.value += int(_) * 16 ** i
+        return n
 
-class Decimal:
-    def __init__(self, x):
-        self.value = x
+
+class Decimal(int):
+    def __init__(self, value):
+        self.value = value
 
     def __str__(self):
         return 'Decimal: {}'.format(self.value)
@@ -65,3 +87,25 @@ class Decimal:
             flag = flag // 2
         _bin = Binary(int(value_str))
         return _bin
+
+    def to_hex(self):
+        value_str = ''
+        flag = self.value
+        dict = {
+            10: 'A',
+            11: 'B',
+            12: 'C',
+            13: 'D',
+            14: 'E',
+            15: 'E'
+        }
+        while flag > 0:
+            remainder = flag % 16
+            if remainder > 9:
+                Hex_char = dict[remainder]
+                value_str += Hex_char
+            else:
+                value_str += str(remainder)
+            flag = flag // 16
+        return value_str
+
