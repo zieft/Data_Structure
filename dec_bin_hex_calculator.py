@@ -1,4 +1,4 @@
-class Binary:
+class Binary_Positive:
     def __init__(self, value):
         assert type(value) == int and self.elementof(value).issubset(
             {'0', '1'}), 'the input accept only combinations of integers 1 and 0!'
@@ -24,6 +24,10 @@ class Binary:
             n.value += int(value_str[i]) * 2 ** exponent
             exponent += 1
         return n
+
+
+class BinaryNegative:
+    pass
 
     def to_hex(self):
         return self.to_dec().to_hex()
