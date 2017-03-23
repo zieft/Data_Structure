@@ -4,8 +4,12 @@ class Bag:
     """
 
     def __init__(self):
+        """
+        Constructs an EMPTY Bag.
+        """
         self._head = None
         self._size = 0
+        self._tail = None
 
     def __len__(self):
         return self._size
@@ -21,9 +25,9 @@ class Bag:
             curNode = curNode.next
         return curNode is not None
 
-    def add(self, item):
+    def prepend(self, item):
         """
-        Add a new item into the bag.
+        Add a new item at the beginning of the bag.
         根据__init__()，bag实例被创建时只能为空，因此bag中所有的元素都是后期加进去的
         因此可以保证bag中每一个元素都是_BagListNode类的实例，因此具有next方法。
         :param item:
@@ -33,6 +37,14 @@ class Bag:
         newNode.next = self._head
         self._head = newNode
         self._size += 1
+
+    def append(self, item):
+        newNode = _BagListNode(item)
+        if self._head is None:
+            self._head = newNode
+        else:
+            self._tail.next = newNode
+        self._tail = newNode
 
     def remove(self, item):
         predNode = None
@@ -50,6 +62,7 @@ class Bag:
             predNode.next = curNode.next  # unlink the current node.
         return curNode.item
 
+
     def __iter__(self):
         """
         Returns an iterator for traversing the list of items.
@@ -61,6 +74,7 @@ class _BagListNode:
     def __init__(self, item):
         self.item = item
         self.next = None
+
 
 class _BagIterator:
     def __init__(self, listhead):
@@ -77,4 +91,3 @@ class _BagIterator:
             self._curNode = self._curNode.next
             return item
 
-    
