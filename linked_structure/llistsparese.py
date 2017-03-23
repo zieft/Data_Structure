@@ -126,12 +126,55 @@ class SparseMatrix:
 
         elif value != 0.0:
             newNode = _MatrixElementNode(col, value)
-            newNode.next == curNode
+            newNode.next = curNode
             if curNode == self._listOfRows[row]:
                 self._listOfRows[row] = newNode
             else:
                 predNode.next = newNode
 
+    def scaleBy(self, scalar):
+        for row in range(self.numRows()):
+            curNode = self._listOfRows[row]
+            while curNode is not None:
+                curNode.value *= scalar
+                curNode = curNode.next
+
+    def transpose(self):
+        pass
+
+    def __add__(self, rhsMatrix):
+        """
+        Matrix addition
+        :param rhsMatrix:
+        :return: newMatrix = self + rhsMatrix
+        """
+        assert rhsMatrix.numRows() == self.numRows() and \
+               rhsMatrix.numCols() == self.numCols(), \
+            "Matrix sizes not compatible for adding."
+
+        newMatrix = SparseMatrix(self.numRows(), self.numCols())
+
+        for row in range(self.numRows()):  # add self to newMatrix
+            curNode = self._listOfRows[row]
+            while curNode is not None:
+                newMatrix[row, curNode.col] = curNode.value
+                curNode = curNode.next
+
+        for row in range(rhsMatrix.numRows()):  # add rhsMatrix to newMatrix
+            curNode = rhsMatrix._listOfRows[row]
+            while curNode is not None:
+                value = newMatrix._listOfRows[row]
+                value += curNode.value
+                newMatrix[row, curNode.col] = value
+                curNode = curNode.next
+
+        return newMatrix
+
+    def __sub__(self, rhsMatrix):
+        pass
+
+    def __mul__(self, rhsMatrix):
+        pass
 
 
 class _MatrixElementNode:
