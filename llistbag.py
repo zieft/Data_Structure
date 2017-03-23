@@ -55,9 +55,26 @@ class Bag:
         Returns an iterator for traversing the list of items.
         :return:
         """
-        return _BagListNode(self._head)  # 不理解这该如何遍历
+        return _BagIterator(self._head)
 
 class _BagListNode:
     def __init__(self, item):
         self.item = item
         self.next = None
+
+class _BagIterator:
+    def __init__(self, listhead):
+        self._curNode = listhead
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self._curNode is None:
+            raise StopIteration
+        else:
+            item = self._curNode.item
+            self._curNode = self._curNode.next
+            return item
+
+    
